@@ -1,0 +1,11 @@
+function Print-FomattedEvent {
+    param (
+        [string[]] $Message
+    )
+    $EventTime = ((get-date).ToUniversalTime()).ToString("yyyy-MM-dd HH:mm:ss.fff")
+    "$EventTime;$env:computername;$Message"
+}
+
+$ActiveUsers = (Get-CimInstance Win32_LoggedOnUser).antecedent.name | Select-Object -Unique
+
+Print-FomattedEvent($ActiveUsers)
